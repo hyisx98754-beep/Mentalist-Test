@@ -259,8 +259,6 @@
   }
 
   document.addEventListener("click",event=>{
-    const viewBtn=event.target.closest("[data-view]");
-    if(viewBtn){switchView(viewBtn.dataset.view);return;}
     const openBtn=event.target.closest("[data-open-module]");
     if(openBtn){openModule(openBtn.dataset.openModule);return;}
     const filterBtn=event.target.closest("[data-filter]");
@@ -317,6 +315,12 @@
       feedback("focusFeedback",value===""?"Escribe un número para comprobarlo.":Number(value)===6?"Exacto: hay 6 letras A. Has mantenido la regla durante toda la secuencia.":"No exactamente. Hay 6 letras A. Revisa la secuencia una vez más y cuenta solo la A.",Number(value)===6?"good":"bad");
     }
   });
+
+  // Navigation controls are bound directly so they do not depend on event delegation.
+  document.querySelectorAll("[data-view]").forEach(control=>{
+    control.addEventListener("click",()=>switchView(control.dataset.view));
+  });
+  window.MENTALIST = { navigate:switchView, openLesson:openModule, closeLesson:closeModal };
 
   document.getElementById("moduleSearch").addEventListener("input",renderAllModules);
   document.getElementById("closeModal").addEventListener("click",closeModal);
