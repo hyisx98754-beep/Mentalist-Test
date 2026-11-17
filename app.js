@@ -84,7 +84,15 @@
     try{
       const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "null");
       if(saved && Array.isArray(saved.completed) && Array.isArray(saved.dates)){
-        return {xp:Number(saved.xp)||0, completed:saved.completed.filter(id=>modules.some(m=>m.id===id)), dates:[...new Set(saved.dates)].sort()};
+        return {
+          xp:Number(saved.xp)||0,
+          completed:saved.completed.filter(id=>modules.some(m=>m.id===id)),
+          dates:[...new Set(saved.dates)].sort(),
+          dayProgress:saved.dayProgress && typeof saved.dayProgress==="object" ? saved.dayProgress : {},
+          dailyCompleted:Array.isArray(saved.dailyCompleted) ? saved.dailyCompleted : [],
+          dailyHistory:saved.dailyHistory && typeof saved.dailyHistory==="object" ? saved.dailyHistory : {},
+          dailyStartDate:saved.dailyStartDate || null
+        };
       }
     }catch(error){}
     return {xp:0,completed:[],dates:[]};
