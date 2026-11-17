@@ -112,7 +112,7 @@
     const levels=[{name:"Observador",min:0,next:120},{name:"Explorador",min:120,next:300},{name:"Analista",min:300,next:520},{name:"Investigador",min:520,next:800},{name:"Mentalista",min:800,next:1200}];
     let current=levels[0];
     for(const level of levels){if(progress.xp>=level.min) current=level;}
-    return {name:current.name,min:current.min,next:current.next,percent:Math.min(100,Math.round(((progress.xp-current.min)/(current.next-current.min))*100))};
+    return {name:current.name,number:levels.indexOf(current)+1,min:current.min,next:current.next,percent:Math.min(100,Math.round(((progress.xp-current.min)/(current.next-current.min))*100))};
   }
   function getModule(id){return modules.find(m=>m.id===id);}
   function renderCard(m){
@@ -141,7 +141,7 @@
   }
   function updateUI(){
     const count=progress.completed.length, percent=Math.round(count/modules.length*100),level=levelInfo(),streak=streakCount();
-    setText("xpCount",progress.xp);setText("completedCount",count);setText("levelName",level.name);setText("levelLabel","Nivel "+(modules.length?Math.max(1,Math.floor(progress.xp/120)+1):1)+" · "+level.name);
+    setText("xpCount",progress.xp);setText("completedCount",count);setText("levelName",level.name);setText("levelLabel","Nivel "+level.number+" · "+level.name);
     setText("progressPercent",percent+"%");setWidth("progressBar",percent);
     setText("streakCount",streak);setText("bigXp",progress.xp);setText("bigCompleted",count);setText("bigStreak",streak);setText("bigDisciplines",new Set(modules.filter(m=>progress.completed.includes(m.id)).map(m=>m.category)).size);
     setWidth("levelProgressBar",level.percent);setText("nextLevelText",progress.xp>=800?"Has alcanzado el rango más alto de esta primera ruta.":(level.next-progress.xp)+" XP para llegar a "+(["Observador","Explorador","Analista","Investigador","Mentalista"][Math.min(4,["Observador","Explorador","Analista","Investigador","Mentalista"].indexOf(level.name)+1)]));
@@ -290,9 +290,9 @@
     }
     if(action==="start-memory")startMemory();
     if(action==="memory-check"){
-      const input=(document.getElementById("memoryInput").value||"").toLocaleLowerCase("es");
-      const words=["nube","espejo","limón","limon","puente","reloj","bosque","carta"];
-      const score=words.filter(w=>new RegExp("(^|[^a-záéíóúñ])"+w+"([^a-záéíóúñ]|$)","i").test(input)).length;
+      const input=(document.getElementById("memoryInput").value||"").toLocaleLowerCase("es").normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+      const words=["nube","espejo","limon","puente","reloj","bosque","carta"];
+      const score=words.filter(w=>new RegExp("(^|[^a-zñ])"+w+"([^a-zñ]|$)","i").test(input)).length;
       feedback("memoryFeedback","Recordaste "+score+" de 7 palabras. "+(score>=5?"Excelente recuperación.":"La memoria mejora con atención y práctica de recuperación."),score>=5?"good":"");
     }
     if(action==="psych-answer"){
