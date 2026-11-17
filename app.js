@@ -433,6 +433,10 @@
     "al pensar en una dirección del mapa","al concentrarse en una de dos cajas","al imaginar una palabra corta"
   ];
   const WRIST_DIRECTIONS = ["hacia dentro","hacia fuera","ligeramente hacia arriba","ligeramente hacia abajo","hacia la izquierda","hacia la derecha"];
+  const SCENE_SETTINGS = ["en la biblioteca del barrio","durante una práctica de teatro","en el laboratorio escolar","en la estación de tren","durante una visita al museo","en un taller de reparación","en el patio después de clase","en una cafetería tranquila","durante una excursión","en una sala de espera","en el club de ajedrez","en el jardín comunitario","en una exposición de ciencias","en una estación meteorológica","en una tienda de antigüedades"];
+  const PEOPLE_NAMES = ["Alex","Sam","Noa","Dani","Leo","Mara","Iris","Nico","Luna","Ari","Teo","Eva","Gael","Sara","Emi","Rafa","Vera","Ian","Sol","Cris","Milo","Nora","Elías","Alma","Bruno"];
+  const ASSOCIATION_CONTEXTS = ["antes de comenzar una investigación","al preparar una historia de misterio","durante una visita guiada","en una actividad de creatividad","al diseñar un anuncio","en un juego de palabras","al describir un lugar","en un diario de observación","al inventar un título","en una conversación imaginaria","al planear una excursión","en una práctica de escritura"];
+  const WRIST_TARGETS = ["una tarjeta azul","una tarjeta con una estrella","una caja pequeña","un objeto colocado sobre la mesa","una de dos fotografías","un símbolo en una hoja","una palabra escrita en una tarjeta","una dirección marcada en un mapa"];
 
   function buildProgramExercise(module,day){
     const categoryIndex=modules.findIndex(m=>m.id===module.id);
@@ -460,25 +464,33 @@
     }
     if(module.id==="psychology"){
       const sample=PSYCHOLOGY_CASES[(day*7)%PSYCHOLOGY_CASES.length];
-      return {...base,type:"choice",prompt:sample.scene+" "+sample.question,options:sample.options,correct:sample.correct,why:sample.why,explain:"Distingue lo que observas de la explicación que imaginas."};
+      const setting=SCENE_SETTINGS[(day-1)%SCENE_SETTINGS.length];
+      const person=PEOPLE_NAMES[(Math.floor((day-1)/SCENE_SETTINGS.length))%PEOPLE_NAMES.length];
+      return {...base,type:"choice",prompt:"Caso "+number+": "+person+" está "+setting+". "+sample.scene+" "+sample.question,options:sample.options,correct:sample.correct,why:sample.why,explain:"Distingue lo que observas de la explicación que imaginas. El escenario cambia cada día."};
     }
     if(module.id==="muscle"){
       const direction=WRIST_DIRECTIONS[(day*5)%WRIST_DIRECTIONS.length];
       const context=MUSCLE_CONTEXTS[(day*3)%MUSCLE_CONTEXTS.length];
+      const target=WRIST_TARGETS[(day*7)%WRIST_TARGETS.length];
+      const person=PEOPLE_NAMES[(Math.floor((day-1)/WRIST_TARGETS.length))%PEOPLE_NAMES.length];
       const options=[
         "El pequeño movimiento puede observarse, pero no demuestra por sí solo una letra o pensamiento.",
         "La dirección confirma exactamente qué palabra está pensando.",
         "Una sola señal muscular siempre tiene el mismo significado."
       ];
-      return {...base,type:"choice",prompt:"Práctica de lectura muscular con consentimiento: una persona apoya cómodamente su antebrazo y muñeca, sin presión. Notas un pequeño movimiento de la muñeca "+direction+" "+context+". ¿Qué conclusión es científicamente prudente?",options,correct:0,why:"Los movimientos ideomotores pueden ser sutiles y ambiguos. Se observan y se repiten con cuidado; no son un código universal. Nunca aprietes ni fuerces la muñeca.",explain:"Esta práctica se centra en la muñeca y el antebrazo, con permiso y sin presionar."};
+      return {...base,type:"choice",prompt:"Caso "+number+": "+person+" acepta participar y coloca cómodamente el antebrazo. Al pensar en "+target+", notas un pequeño movimiento de la muñeca "+direction+" "+context+". ¿Qué conclusión es científicamente prudente?",options,correct:0,why:"Los movimientos ideomotores pueden ser sutiles y ambiguos. Se observan y se repiten con cuidado; no son un código universal. Nunca aprietes ni fuerces la muñeca.",explain:"Esta práctica se centra en la muñeca y el antebrazo, con permiso y sin presionar."};
     }
     if(module.id==="association"){
       const words=ASSOCIATION_SETS[(day*11)%ASSOCIATION_SETS.length];
-      return {...base,type:"association",words,prompt:"Lee las cuatro palabras una vez y escribe la primera asociación que te venga a la mente. No existe una respuesta obligatoria."};
+      const context=ASSOCIATION_CONTEXTS[(day-1)%ASSOCIATION_CONTEXTS.length];
+      const person=PEOPLE_NAMES[(Math.floor((day-1)/ASSOCIATION_CONTEXTS.length))%PEOPLE_NAMES.length];
+      return {...base,type:"association",words,prompt:"Ronda "+number+": imagina que "+person+" prepara una actividad "+context+". Lee estas cuatro palabras una vez y escribe tu primera asociación espontánea. No existe una respuesta obligatoria."};
     }
     if(module.id==="investigation"){
       const sample=INVESTIGATION_CASES[(day*5)%INVESTIGATION_CASES.length];
-      return {...base,type:"choice",prompt:sample.scene+" "+sample.q,options:sample.o,correct:sample.a,why:sample.why,explain:"Una buena investigación separa hechos, hipótesis y datos que todavía faltan."};
+      const setting=SCENE_SETTINGS[(day-1)%SCENE_SETTINGS.length];
+      const person=PEOPLE_NAMES[(Math.floor((day-1)/SCENE_SETTINGS.length))%PEOPLE_NAMES.length];
+      return {...base,type:"choice",prompt:"Expediente "+number+": "+person+" revisa una pista "+setting+". "+sample.scene+" "+sample.q,options:sample.o,correct:sample.a,why:sample.why,explain:"Una buena investigación separa hechos, hipótesis y datos que todavía faltan. Cada expediente combina un contexto distinto."};
     }
     const target=FOCUS_SYMBOLS[day%FOCUS_SYMBOLS.length];
     const symbols=FOCUS_SYMBOLS.filter(x=>x!==target);
