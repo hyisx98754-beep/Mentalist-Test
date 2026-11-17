@@ -530,6 +530,7 @@
     if(targetDay>currentProgramDay()){showToast("Ese día todavía está bloqueado.");return;}
     const ex=buildProgramExercise(module,targetDay);
     window.currentAnnualExercise=ex;
+    window.annualExerciseAttempted=false;
     document.getElementById("modalCategory").textContent="DÍA "+targetDay+" / 365 · "+module.category.toUpperCase();
     document.getElementById("modalContent").innerHTML=
       '<div class="lesson-number">PROGRAMA ANUAL · DISCIPLINA '+String(modules.findIndex(m=>m.id===moduleId)+1).padStart(2,"0")+' DE 08</div>'+
@@ -546,6 +547,7 @@
   function completeProgramExercise(){
     const ex=window.currentAnnualExercise;
     if(!ex)return;
+    if(!window.annualExerciseAttempted){showToast("Primero realiza la práctica y responde el ejercicio.");return;}
     const key=String(ex.day);
     progress.dayProgress[key]=Array.isArray(progress.dayProgress[key])?progress.dayProgress[key]:[];
     if(!progress.dayProgress[key].includes(ex.moduleId)){
@@ -636,6 +638,7 @@
     const challenge=buildDailyChallenge(index);
     const completed=progress.dailyCompleted.includes(index);
     window.currentDailyChallenge=challenge;
+    window.dailyChallengeAnswered=false;
     document.getElementById("modalCategory").textContent="RETO DIARIO "+String(index).padStart(3,"0")+" / 365";
     document.getElementById("modalContent").innerHTML=
       '<div class="lesson-number">DESAFÍO EXTRA · NO CUENTA COMO LECCIÓN</div>'+
@@ -653,6 +656,7 @@
   function completeDailyChallenge(){
     const challenge=window.currentDailyChallenge;
     if(!challenge)return;
+    if(!window.dailyChallengeAnswered){showToast("Primero responde el reto diario.");return;}
     if(progress.dailyCompleted.includes(challenge.index)){showToast("Este reto diario ya está completado.");return;}
     progress.dailyCompleted.push(challenge.index);
     progress.dailyHistory[String(challenge.index)]={date:todayKey(),completed:true};
@@ -688,6 +692,7 @@
       if(action==="choose"){
         const answer=programAction.dataset.answer;
         const good=answer===ex.target;
+        window.annualExerciseAttempted=true;
         showProgramFeedback(good?"¡Correcto! "+ex.targetSlot+" tenía "+ex.target+".":"No era esa posición. "+ex.targetSlot+" tenía "+ex.target+".",good);
         document.querySelectorAll('[data-program-action="choose"]').forEach(b=>b.disabled=true);
       }
@@ -696,6 +701,7 @@
         const value=input?Number(input.value):NaN;
         if(!input || input.value.trim()===""){showProgramFeedback("Escribe primero tu respuesta.",false);return;}
         const good=value===ex.count;
+        window.annualExerciseAttempted=true;
         showProgramFeedback(good?"¡Exacto! El resultado era "+ex.count+".":"El resultado era "+ex.count+". Revisa la secuencia y comprueba cómo contaste.",good);
         programAction.disabled=true;
       }
@@ -718,17 +724,20 @@
         const value=(document.getElementById("annualMemoryInput")?.value||"").toLocaleUpperCase("es").normalize("NFD").replace(/[\u0300-\u036f]/g,"");
         const normalized=ex.list.map(x=>x.normalize("NFD").replace(/[\u0300-\u036f]/g,""));
         const score=normalized.filter(x=>value.includes(x)).length;
+        window.annualExerciseAttempted=true;
         showProgramFeedback("Recordaste "+score+" de 7 palabras. "+(score>=5?"Muy buen resultado.":"Practica estrategias de agrupación y recuperación."),score>=5);
       }
       if(action==="choose-index"){
         const answer=Number(programAction.dataset.answer);
         const good=answer===ex.correct;
+        window.annualExerciseAttempted=true;
         showProgramFeedback((good?"Correcto. ":"No exactamente. ")+ex.why,good);
         document.querySelectorAll('[data-program-action="choose-index"]').forEach(b=>b.disabled=true);
       }
       if(action==="submit-association"){
         const value=(document.getElementById("programAssociationInput")?.value||"").trim();
         if(!value){showProgramFeedback("Escribe una asociación antes de guardarla.",false);return;}
+        window.annualExerciseAttempted=true;
         showProgramFeedback("Anotado: «"+value+"». La primación puede influir en las asociaciones, pero no determina la respuesta de todo el mundo.",true);
         programAction.disabled=true;
       }
@@ -743,6 +752,7 @@
       if(dailyAction.dataset.dailyAction==="answer"){
         const choice=challenge.options[Number(dailyAction.dataset.answer)];
         const good=choice===challenge.answer;
+        window.dailyChallengeAnswered=true;
         const feedback=document.getElementById("dailyFeedback");
         if(feedback){feedback.textContent=(good?"¡Correcto! ":"No exactamente. ")+challenge.why;feedback.className="exercise-feedback"+(good?" good":" bad");}
         document.querySelectorAll('[data-daily-action="answer"]').forEach(b=>b.disabled=true);
