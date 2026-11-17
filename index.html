@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101113">
+  <meta name="description" content="MENTALIST: entrena observación, atención, memoria, psicología e investigación.">
+  <title>MENTALIST — Entrena tu percepción</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#" aria-label="MENTALIST inicio">
+        <span class="brand-mark"><span></span><span></span><span></span></span>
+        <span class="brand-name">MENTALIST<span class="brand-dot">.</span><small>ACADEMIA DE PERCEPCIÓN</small></span>
+      </a>
+
+      <div class="side-label">PLATAFORMA</div>
+      <nav class="side-nav" aria-label="Navegación principal">
+        <button class="nav-link active" data-view="dashboard"><span class="nav-icon">⌂</span><span>Inicio</span><span class="nav-arrow">›</span></button>
+        <button class="nav-link" data-view="training"><span class="nav-icon">◈</span><span>Entrenamiento</span></button>
+        <button class="nav-link" data-view="paths"><span class="nav-icon">◎</span><span>Rutas de aprendizaje</span></button>
+        <button class="nav-link" data-view="progress"><span class="nav-icon">▥</span><span>Mi progreso</span></button>
+      </nav>
+
+      <div class="side-divider"></div>
+      <div class="side-label">TU FORMACIÓN</div>
+      <div class="sidebar-course">
+        <div class="course-emblem">I</div>
+        <div><strong>Fundamentos</strong><span>Ruta de principiante</span></div>
+        <span class="course-check">✓</span>
+      </div>
+      <div class="sidebar-bottom">
+        <div class="quote-mark">“</div>
+        <p>La atención es el comienzo de toda investigación.</p>
+        <span>— PRINCIPIO MENTALIST</span>
+        <div class="sidebar-version">MENTALIST <span>v1.0</span></div>
+      </div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <button class="mobile-menu" id="mobileMenu" aria-label="Abrir menú">☰</button>
+        <div class="breadcrumb"><span>ACADEMIA</span><b>/</b><strong id="breadcrumbCurrent">INICIO</strong></div>
+        <div class="topbar-right">
+          <div class="streak-pill"><span class="streak-flame">✦</span><strong id="streakCount">0</strong><span>días de práctica</span></div>
+          <div class="profile-chip"><span class="profile-avatar">M</span><span><strong>Aprendiz</strong><small id="levelLabel">Nivel 1 · Observador</small></span></div>
+        </div>
+      </header>
+
+      <div class="page-content">
+        <section class="view active" id="view-dashboard">
+          <div class="welcome-row">
+            <div>
+              <div class="eyebrow"><span class="eyebrow-line"></span> CENTRO DE ENTRENAMIENTO</div>
+              <h1>Aprende a ver lo que<br><em>otros pasan por alto.</em></h1>
+              <p class="hero-subtitle">Desarrolla una mente más atenta, curiosa y analítica. El verdadero mentalismo comienza con observar mejor.</p>
+              <button class="btn btn-primary" data-open-module="observe">Comenzar entrenamiento <span>↗</span></button>
+            </div>
+            <div class="hero-art" aria-label="Ilustración geométrica decorativa">
+              <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+              <div class="hero-eye"><div class="eye-ring"><div class="eye-pupil"></div></div><span class="eye-glint"></span></div>
+              <div class="art-caption"><span>01 / 08</span><b>OBSERVA · ANALIZA · COMPRENDE</b></div>
+            </div>
+          </div>
+
+          <div class="stats-strip">
+            <div class="stat-item"><span class="stat-icon">◈</span><div><small>EXPERIENCIA</small><strong><span id="xpCount">0</span> XP</strong></div></div>
+            <div class="stat-item"><span class="stat-icon">✓</span><div><small>LECCIONES COMPLETADAS</small><strong><span id="completedCount">0</span> / 8</strong></div></div>
+            <div class="stat-item"><span class="stat-icon">◎</span><div><small>NIVEL ACTUAL</small><strong id="levelName">Observador</strong></div></div>
+            <div class="stat-progress"><div class="progress-label"><small>PROGRESO DE LA ACADEMIA</small><b id="progressPercent">0%</b></div><div class="progress-track"><span id="progressBar"></span></div></div>
+          </div>
+
+          <div class="section-heading">
+            <div><div class="eyebrow">TU SIGUIENTE PASO</div><h2>Entrena tus habilidades</h2></div>
+            <button class="text-button" data-view="training">Ver todas las lecciones <span>→</span></button>
+          </div>
+          <div class="module-grid dashboard-modules" id="dashboardModules"></div>
+
+          <div class="lower-grid">
+            <article class="focus-card">
+              <div class="card-kicker">RETO DE HOY <span class="live-dot"></span></div>
+              <h3>El detalle invisible</h3>
+              <p>Observa una escena durante unos segundos. Después comprueba qué detalles lograste retener.</p>
+              <div class="focus-meta"><span>◷ 4 MIN</span><span>ATENCIÓN Y MEMORIA</span></div>
+              <button class="btn btn-outline" data-open-module="observe">Iniciar reto <span>↗</span></button>
+            </article>
+            <article class="principle-card">
+              <div class="principle-symbol">“</div>
+              <div class="eyebrow">PRINCIPIO DE LA SEMANA</div>
+              <h3>Una señal no es una prueba.</h3>
+              <p>Un gesto aislado puede tener muchas explicaciones. Observa patrones, busca contexto y evita sacar conclusiones demasiado pronto.</p>
+              <span class="principle-foot">PENSAMIENTO CRÍTICO · 01</span>
+            </article>
+          </div>
+        </section>
+
+        <section class="view" id="view-training">
+          <div class="view-heading">
+            <div class="eyebrow"><span class="eyebrow-line"></span> BIBLIOTECA DE HABILIDADES</div>
+            <h1>Entrenamiento</h1>
+            <p>Ocho disciplinas para construir una mente observadora. Cada lección incluye fundamentos, demostración y práctica.</p>
+          </div>
+          <div class="filter-row">
+            <div class="search-box"><span>⌕</span><input id="moduleSearch" type="search" placeholder="Buscar una habilidad..." aria-label="Buscar una habilidad"></div>
+            <div class="filter-tabs" id="filterTabs">
+              <button class="filter-tab active" data-filter="Todas">Todas</button>
+              <button class="filter-tab" data-filter="Percepción">Percepción</button>
+              <button class="filter-tab" data-filter="Psicología">Psicología</button>
+              <button class="filter-tab" data-filter="Investigación">Investigación</button>
+            </div>
+          </div>
+          <div class="module-grid full-module-grid" id="allModules"></div>
+        </section>
+
+        <section class="view" id="view-paths">
+          <div class="view-heading">
+            <div class="eyebrow"><span class="eyebrow-line"></span> PLAN DE ESTUDIOS</div>
+            <h1>Rutas de aprendizaje</h1>
+            <p>Una progresión sugerida: primero aprende a percibir, después a interpretar y finalmente a investigar.</p>
+          </div>
+          <div class="path-list" id="pathList"></div>
+          <div class="note-panel"><span class="note-symbol">i</span><div><strong>Aprende a tu ritmo</strong><p>Las rutas son recomendaciones, no reglas. Puedes abrir cualquier lección en el orden que prefieras.</p></div></div>
+        </section>
+
+        <section class="view" id="view-progress">
+          <div class="view-heading">
+            <div class="eyebrow"><span class="eyebrow-line"></span> REGISTRO PERSONAL</div>
+            <h1>Tu progreso</h1>
+            <p>Tu entrenamiento se guarda en este navegador. Vuelve para continuar desde donde lo dejaste.</p>
+          </div>
+          <div class="progress-overview">
+            <div class="progress-big"><small>EXPERIENCIA ACUMULADA</small><strong><span id="bigXp">0</span><i> XP</i></strong><div class="level-progress"><span id="levelProgressBar"></span></div><p id="nextLevelText">Comienza una lección para ganar experiencia.</p></div>
+            <div class="progress-mini"><div><small>LECCIONES TERMINADAS</small><strong id="bigCompleted">0</strong></div><div><small>DÍAS DE PRÁCTICA</small><strong id="bigStreak">0</strong></div><div><small>DISCIPLINAS EXPLORADAS</small><strong id="bigDisciplines">0</strong></div></div>
+          </div>
+          <div class="section-heading progress-heading"><div><div class="eyebrow">TU HISTORIAL</div><h2>Lecciones completadas</h2></div></div>
+          <div class="history-list" id="historyList"></div>
+          <button class="reset-button" id="resetProgress">Reiniciar mi progreso</button>
+        </section>
+      </div>
+      <footer class="footer"><span>MENTALIST<span class="brand-dot">.</span> <small>ACADEMIA DE PERCEPCIÓN</small></span><span>Entrena la curiosidad. Respeta la evidencia.</span></footer>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="lessonModal" aria-hidden="true">
+    <section class="lesson-modal" role="dialog" aria-modal="true" aria-labelledby="lessonTitle">
+      <div class="modal-top"><span class="modal-category" id="modalCategory">PERCEPCIÓN</span><button class="modal-close" id="closeModal" aria-label="Cerrar lección">×</button></div>
+      <div class="modal-scroll" id="modalContent"></div>
+    </section>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
