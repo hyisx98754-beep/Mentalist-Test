@@ -132,7 +132,7 @@
     document.getElementById("pathList").innerHTML=paths.map(path=>{
       const done=path.ids.filter(id=>progress.completed.includes(id)).length;
       const chips=path.tags.map(t=>'<span>'+t+'</span>').join("");
-      return '<article class="path-card"><div class="path-number">'+path.number+'</div><div><h3>'+path.title+'</h3><p>'+path.description+'</p><div class="path-tags">'+chips+'</div></div><button class="path-action" data-open-module="'+path.ids.find(id=>!progress.completed.includes(id))+'">'+(done===path.ids.length?"Repasar ruta":done+"/"+path.ids.length+" completadas")+" ↗</button></article>';
+      return '<article class="path-card"><div class="path-number">'+path.number+'</div><div><h3>'+path.title+'</h3><p>'+path.description+'</p><div class="path-tags">'+chips+'</div></div><button class="path-action" data-open-module="'+(path.ids.find(id=>!progress.completed.includes(id))||path.ids[0])+'">'+(done===path.ids.length?"Repasar ruta":done+"/"+path.ids.length+" completadas")+" ↗</button></article>';
     }).join("");
   }
   function renderHistory(){
