@@ -597,7 +597,7 @@
     if(type.kind==="pattern"){
       const start=3+index,step=2+(index%5);
       const series=[start,start+step,start+step*2,start+step*3,"?"];
-      return {index,title:type.name,prompt:"Observa la secuencia y descubre qué número sigue.",detail:series.join(" · "),options:shuffled([String(start+step*4),String(start+step*4+1),String(start+step*3),String(start+step*5)],rng),answer:String(start+step*4),why:"La secuencia aumenta siempre en "+step+"."};
+      return {index,title:"Reto "+String(index).padStart(3,"0")+" · "+type.name,prompt:"Reto "+String(index).padStart(3,"0")+": la secuencia empieza en "+start+" y aumenta de "+step+" en "+step+". ¿Qué número falta al final?",detail:series.join(" · "),options:shuffled([String(start+step*4),String(start+step*4+1),String(start+step*3),String(start+step*5)],rng),answer:String(start+step*4),why:"La secuencia aumenta siempre en "+step+"."};
     }
     if(type.kind==="clue"){
       const places=["biblioteca","estación","invernadero","taller","museo","patio"];
@@ -605,7 +605,7 @@
       const place=places[(index*3)%places.length], clue=objects[(index*7)%objects.length];
       const minute=(index*37)%1440,clock=String(Math.floor(minute/60)).padStart(2,"0")+":"+String(minute%60).padStart(2,"0");
       const options=["La pista puede orientar una búsqueda, pero no identifica por sí sola a una persona.","La pista demuestra quién estuvo allí.","La pista no tiene ninguna utilidad."];
-      return {index,title:type.name,prompt:"En el informe diario "+String(index).padStart(3,"0")+", registrado a las "+clock+", en el/la "+place+" aparece "+clue+". ¿Cuál es la conclusión más rigurosa?",detail:"Analiza el alcance real de una pista.",options,answer:options[0],why:"Una pista puede apoyar una hipótesis y ayudar a investigar, pero no demuestra por sí sola quién la dejó."};
+      return {index,title:"Reto "+String(index).padStart(3,"0")+" · "+type.name,prompt:"En el informe diario "+String(index).padStart(3,"0")+", registrado a las "+clock+", en el/la "+place+" aparece "+clue+". ¿Cuál es la conclusión más rigurosa?",detail:"Analiza el alcance real de una pista.",options,answer:options[0],why:"Una pista puede apoyar una hipótesis y ayudar a investigar, pero no demuestra por sí sola quién la dejó."};
     }
     if(type.kind==="question"){
       const subjects=["un testigo","una compañera","un visitante","un investigador","un vecino","un estudiante"];
@@ -613,19 +613,19 @@
       const person=subjects[(index*5)%subjects.length],topic=topics[(index*9)%topics.length];
       const elapsed=3+index*2;
       const options=["¿Puedes contarme qué recuerdas sobre "+topic+"?","¿Verdad que llegaste tarde?","¿Viste exactamente lo que yo creo que pasó?"];
-      return {index,title:type.name,prompt:"Han pasado "+elapsed+" minutos desde el inicio de la conversación. Quieres obtener información de "+person+" sin sugerir una respuesta sobre "+topic+". ¿Qué pregunta elegirías?",detail:"Elige la pregunta menos sugestiva.",options,answer:options[0],why:"Una pregunta abierta permite responder con palabras propias y reduce la sugestión."};
+      return {index,title:"Reto "+String(index).padStart(3,"0")+" · "+type.name,prompt:"Han pasado "+elapsed+" minutos desde el inicio de la conversación. Quieres obtener información de "+person+" sin sugerir una respuesta sobre "+topic+". ¿Qué pregunta elegirías?",detail:"Elige la pregunta menos sugestiva.",options,answer:options[0],why:"Una pregunta abierta permite responder con palabras propias y reduce la sugestión."};
     }
     if(type.kind==="order"){
       const caseName=["el mapa perdido","la caja del archivo","la nota anónima","el reloj detenido","la fotografía","la llave antigua"][(index-1)%6];
       const actions=shuffled(["observar la escena","anotar los hechos","proponer hipótesis","buscar pruebas que las comparen"],rng);
       const correct=["observar la escena","anotar los hechos","proponer hipótesis","buscar pruebas que las comparen"];
-      return {index,title:type.name,prompt:"En el expediente "+String(index).padStart(3,"0")+" («"+caseName+"»), ordena mentalmente estos pasos de investigación. ¿Cuál debería ser el primero?",detail:actions.map((x,i)=>(i+1)+". "+x).join("   /   "),options:shuffled(["Observar la escena","Acusar a alguien","Elegir la explicación más llamativa","Ignorar los datos que contradicen la idea"],rng),answer:"Observar la escena",why:"Primero se describen los hechos; después se proponen y comprueban explicaciones."};
+      return {index,title:"Reto "+String(index).padStart(3,"0")+" · "+type.name,prompt:"En el expediente "+String(index).padStart(3,"0")+" («"+caseName+"»), ordena mentalmente estos pasos de investigación. ¿Cuál debería ser el primero?",detail:actions.map((x,i)=>(i+1)+". "+x).join("   /   "),options:shuffled(["Observar la escena","Acusar a alguien","Elegir la explicación más llamativa","Ignorar los datos que contradicen la idea"],rng),answer:"Observar la escena",why:"Primero se describen los hechos; después se proponen y comprueban explicaciones."};
     }
     const totalA=100+index,totalB=200+index;
     const a=1+((index*7)%totalA),b=1+((index*11)%totalB);
     const options=["Grupo A, porque tiene "+a+" casos de cada 10","Grupo B, porque tiene "+b+" casos de cada 10","Ambos tienen la misma proporción"];
     const answer=a/totalA>b/totalB?options[0]:b/totalB>a/totalA?options[1]:options[2];
-    return {index,title:type.name,prompt:"Dos rutas tienen estos resultados: ruta A, "+a+" éxitos de "+totalA+" intentos; ruta B, "+b+" éxitos de "+totalB+" intentos. ¿Cuál mostró mayor proporción de éxito?",detail:"Compara proporciones, no impresiones.",options,answer,why:"Con el mismo número de intentos, compara los éxitos de cada grupo. Es una muestra pequeña y no garantiza el resultado futuro."};
+    return {index,title:"Reto "+String(index).padStart(3,"0")+" · "+type.name,prompt:"Dos rutas tienen estos resultados: ruta A, "+a+" éxitos de "+totalA+" intentos; ruta B, "+b+" éxitos de "+totalB+" intentos. ¿Cuál mostró mayor proporción de éxito?",detail:"Compara proporciones, no impresiones.",options,answer,why:"Con el mismo número de intentos, compara los éxitos de cada grupo. Es una muestra pequeña y no garantiza el resultado futuro."};
   }
 
   function renderDailyChallenge(){
