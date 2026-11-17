@@ -824,6 +824,8 @@
     setText("nextLevelText",progress.xp>=800?"Sigue sumando experiencia en tu programa anual.":(level.next-progress.xp)+" XP para llegar al siguiente nivel.");
     const stats=document.querySelectorAll(".stat-item small");
     if(stats[1])stats[1].textContent="EJERCICIOS DEL DÍA";
+    const academyProgressLabel=document.querySelector(".stat-progress small");
+    if(academyProgressLabel)academyProgressLabel.textContent="PROGRESO DEL DÍA";
     const bigStat=document.querySelector(".progress-mini small");
     if(bigStat)bigStat.textContent="EJERCICIOS COMPLETADOS";
     const completedStat=document.getElementById("bigCompleted");
