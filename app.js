@@ -614,7 +614,7 @@
     const totalA=100+index,totalB=200+index;
     const a=1+((index*7)%totalA),b=1+((index*11)%totalB);
     const options=["Grupo A, porque tiene "+a+" casos de cada 10","Grupo B, porque tiene "+b+" casos de cada 10","Ambos tienen la misma proporción"];
-    const answer=a>b?options[0]:b>a?options[1]:options[2];
+    const answer=a/totalA>b/totalB?options[0]:b/totalB>a/totalA?options[1]:options[2];
     return {index,title:type.name,prompt:"Dos rutas tienen estos resultados: ruta A, "+a+" éxitos de "+totalA+" intentos; ruta B, "+b+" éxitos de "+totalB+" intentos. ¿Cuál mostró mayor proporción de éxito?",detail:"Compara proporciones, no impresiones.",options,answer,why:"Con el mismo número de intentos, compara los éxitos de cada grupo. Es una muestra pequeña y no garantiza el resultado futuro."};
   }
 
